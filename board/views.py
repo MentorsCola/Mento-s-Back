@@ -5,7 +5,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .BoardSerializer import BoardSerializer, BoardDetailSerializer
+from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer
 from .models import Board
 
 
@@ -14,7 +14,7 @@ class BoardList(APIView):
 
     def get(self, request):
         boards = Board.objects.all()
-        serializer = BoardSerializer(boards, many=True)
+        serializer = BoardNotLoginSerializer(boards, many=True)
         return Response({'boards': serializer.data}, status=status.HTTP_200_OK)
 
 
@@ -22,7 +22,7 @@ class BoardList(APIView):
 class BoardDetail(APIView):
     def get(self, request, pk):
         board = get_object_or_404(Board, pk=pk)
-        serializer = BoardDetailSerializer(board)
+        serializer = BoardSerializer(board)
         return JsonResponse({'board': serializer.data})
 
     def post(self, request):
