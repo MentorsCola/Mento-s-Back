@@ -3,7 +3,7 @@ import random
 from rest_framework import serializers
 
 from board.models import Board
-from nicknames.models import Nicknames
+from user.models import User
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -15,6 +15,9 @@ class BoardSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # 현재 로그인한 사용자를 작성자로 설정
         user = self.context['request'].user
+
+        # 사용자의 이메일을 가져와서 해당 이메일에 해당하는 사용자를 찾아 할당
+        validated_data['author'] = User.objects.get(email=user.email)
 
         # 사용자의 닉네임을 가져와서 할당
         validated_data['nickname_author'] = user.id_nickname
