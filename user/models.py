@@ -16,11 +16,10 @@ class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         email = self.normalize_email(email)
 
-        def clean(self):
-            try:
-                validate_email(self.email)
-            except ValidationError as e:
-                raise ValidationError({'email': 'Invalid email address'}) from e
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            raise ValidationError({'email': 'Invalid email address'}) from e
 
         if self.filter(email=email).exists():
             raise ValueError('이미 등록된 이메일 주소입니다.')
@@ -28,6 +27,7 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        user.nickSave()  # 닉네임 저장 메서드 호출
         return user
 
     def create_superuser(self, email=None, password=None, **extra_fields):
