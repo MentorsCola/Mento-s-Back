@@ -45,7 +45,8 @@ class RegisterAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginAPIView(APIView):
+class AuthAPIView(APIView):
+    # 로그인
     def post(self, request):
         # 유저 인증
         user = authenticate(
@@ -76,8 +77,7 @@ class LoginAPIView(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
-class Logout(APIView):
+    # 로그아웃
     def delete(self, request):
         # 쿠키에 저장된 토큰 삭제 => 로그아웃 처리
         response = Response({
