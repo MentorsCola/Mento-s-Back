@@ -30,7 +30,7 @@ class UserManager(BaseUserManager):
         user.nickSave()  # 닉네임 저장 메서드 호출
         return user
 
-    def create_superuser(self, email=None, password=None, **extra_fields):
+    def create_superuser(self, email=None, password=None):
         """
         주어진 이메일, 비밀번호 등 개인정보로 User 인스턴스 생성
         단, 최상위 사용자이므로 권한을 부여
@@ -54,6 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
     password = models.CharField(max_length=100, null=False, blank=False)
     id_nickname = models.ForeignKey(Nicknames, on_delete=models.CASCADE, null=True, blank=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     # 헬퍼 클래스 사용
     objects = UserManager()
