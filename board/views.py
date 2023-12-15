@@ -26,7 +26,7 @@ class BoardDetail(APIView):
         return JsonResponse({'board': serializer.data})
 
     def post(self, request):
-        serializer = BoardSerializer(data=request.data)
+        serializer = BoardSerializer(data=request.data, context={'request': request})  # context에 request를 명시적으로 전달
 
         if serializer.is_valid():
             serializer.save()
