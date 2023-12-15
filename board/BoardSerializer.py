@@ -23,3 +23,10 @@ class BoardSerializer(serializers.ModelSerializer):
         validated_data['nickname_author'] = user.id_nickname
 
         return super().create(validated_data)
+
+
+class BoardDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author']
+        read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author']
