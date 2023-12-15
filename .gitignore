@@ -105,3 +105,5 @@ nicknames/__init__.py
 
 secrets.json
 my_settings.py
+
+/.idea
