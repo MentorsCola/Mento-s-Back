@@ -15,13 +15,8 @@ class BoardSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # 현재 로그인한 사용자를 작성자로 설정
         user = self.context['request'].user
-        board = Board.objects.create(author=user, **validated_data)
 
-        # 닉네임을 자동으로 할당 (랜덤으로 선택)
-        all_nicknames = Nicknames.objects.all()
-        if all_nicknames:
-            random_nickname = random.choice(all_nicknames)
-            board.nickname_author = random_nickname
-            board.save()
+        # 사용자의 닉네임을 가져와서 할당
+        validated_data['nickname_author'] = user.id_nickname
 
-        return board
+        return super().create(validated_data)
