@@ -95,9 +95,13 @@ ENV/
 .spyderproject
 
 user/migrations
+user/__init__.py
 board/migrations
+board/__init__.py
 like/migrations
+like/__init__.py
 nicknames/migrations
+nicknames/__init__.py
 
 secrets.json
 my_settings.py
