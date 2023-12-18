@@ -53,13 +53,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
 
     # 생성한 앱
     'board',
     'user',
     'like',
     'nicknames',
+    'comment',
 
 
     # 설치한 라이브러리
