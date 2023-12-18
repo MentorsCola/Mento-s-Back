@@ -7,5 +7,4 @@ urlpatterns = [
     path('user/', include('django.contrib.auth.urls')), # auth URL patterns
     path('user/', include('user.urls')), # 유저에 정의된 URL
     path('like/', include('like.urls')),
-    path('comment/', include('comment.urls')),
 ]
