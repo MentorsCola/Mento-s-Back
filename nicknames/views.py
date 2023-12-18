@@ -10,8 +10,5 @@ class NicknameView(APIView):
         print(len(all_nickname))
         list = []
         for i in all_nickname:
-            # print(i)
-            list.append({"id": i.id, "names": i.names})
-        # if all_nickname:
-        #     return Response(all_nickname, status=status.HTTP_200_OK)
+            list.append({"id": i.id, "name": i.names})
         return Response(list, status=status.HTTP_200_OK)
