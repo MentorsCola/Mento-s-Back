@@ -1,3 +1,13 @@
 from django.db import models
+from board.models import Board
+from nicknames.models import Nicknames
 
-# Create your models here.
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField("댓글 내용", null=False)
+    nickname = models.ForeignKey(Nicknames, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Comment #{self.id} for Board #{self.board_id} by {self.nickname}"
