@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'like',
     'nicknames',
 
+
     # 설치한 라이브러리
     'rest_framework',
     'rest_framework_simplejwt',
