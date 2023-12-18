@@ -50,7 +50,8 @@ class UserManager(BaseUserManager):
 
 # AbstractBaseUser를 상속해서 유저 커스텀
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)    
+    is_staff = models.BooleanField(default=False)
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
     password = models.CharField(max_length=100, null=False, blank=False)
     id_nickname = models.ForeignKey(Nicknames, on_delete=models.CASCADE, null=True, blank=True)
