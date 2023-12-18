@@ -3,7 +3,7 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    nickname = serializers.CharField(source='nickname.name', read_only=True)
+    nickname = serializers.CharField(source='nickname_id', read_only=True)
 
     class Meta:
         model = Comment
