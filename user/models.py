@@ -16,11 +16,10 @@ class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         email = self.normalize_email(email)
 
-        def clean(self):
-            try:
-                validate_email(self.email)
-            except ValidationError as e:
-                raise ValidationError({'email': 'Invalid email address'}) from e
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            raise ValidationError({'email': 'Invalid email address'}) from e
 
         if self.filter(email=email).exists():
             raise ValueError('이미 등록된 이메일 주소입니다.')
@@ -28,9 +27,10 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        user.nickSave()  # 닉네임 저장 메서드 호출
         return user
 
-    def create_superuser(self, email=None, password=None, **extra_fields):
+    def create_superuser(self, email=None, password=None):
         """
         주어진 이메일, 비밀번호 등 개인정보로 User 인스턴스 생성
         단, 최상위 사용자이므로 권한을 부여
@@ -55,6 +55,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
     password = models.CharField(max_length=100, null=False, blank=False)
     id_nickname = models.ForeignKey(Nicknames, on_delete=models.CASCADE, null=True, blank=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     # 헬퍼 클래스 사용
     objects = UserManager()
