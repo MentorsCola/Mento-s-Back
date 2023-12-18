@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'user',
     'like',
     'nicknames',
+    'comment',
 
 
     # 설치한 라이브러리
