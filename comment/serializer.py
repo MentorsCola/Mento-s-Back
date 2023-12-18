@@ -3,10 +3,12 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    nickname = serializers.CharField(source='nickname.name', read_only=True)
+
     class Meta:
         model = Comment
-        fields = '__all__'
-        read_only_fields = ['nickname']
+        fields = ['id', 'content', 'nickname']
+        read_only_fields = ['nickname', 'board']
 
     def create(self, validated_data):
         # 현재 로그인한 사용자를 작성자로 설정
