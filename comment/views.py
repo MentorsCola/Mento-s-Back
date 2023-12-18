@@ -22,4 +22,5 @@ class CommentCreateAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return JsonResponse({'message': '글이 존재하지 않습니다.'})
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
