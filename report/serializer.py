@@ -5,4 +5,5 @@ from .models import Report
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
-        fields = '__all__'
+        fields = ['board']
+        read_only_fields = ['reporter']
