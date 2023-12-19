@@ -18,14 +18,14 @@ class LikeBoardView(APIView):
         if like_exists:
             # 이미 누른 상태이면 하트 취소
             Like.objects.filter(user_email=user, board_id=board_id).delete()
-            board.like -= 1
-            board.save()
-            message = '좋아요 취소'
+            # board.like -= 1
+            # board.save()
+            message = "좋아요 취소"
         else:
             # 하트 누르기
             Like.objects.create(user_email=user,  board_id=board)
-            board.like += 1
-            board.save()
-            message = '좋아요'
+            # board.like += 1
+            # board.save()
+            message = "좋아요"
 
-        return JsonResponse({'message': message, 'like_count': board.like})
+        return JsonResponse({'message': message, 'like_count': board.like.count()})
