@@ -104,6 +104,8 @@ nicknames/migrations
 nicknames/__init__.py
 comment/migrations
 comment/__init__.py
+tag/__init__.py
+tag/migrations
 
 secrets.json
 my_settings.py
