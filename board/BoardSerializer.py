@@ -1,5 +1,3 @@
-import random
-
 from rest_framework import serializers
 
 from board.models import Board
@@ -41,11 +39,11 @@ class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
     class Meta:
         model = Board
         fields = ['id', 'title', 'dt_created', 'dt_modified', 'nickname_author']
-        read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author', 'tags']
+        read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author']
 
 
 class BoardLoginSerializer(serializers.ModelSerializer): #board get
     class Meta:
         model = Board
-        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments']
+        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments', 'tag']
         read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author', 'comments']
