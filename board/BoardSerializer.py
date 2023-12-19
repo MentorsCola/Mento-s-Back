@@ -43,7 +43,9 @@ class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
 
 
 class BoardLoginSerializer(serializers.ModelSerializer): #board get
+    tags = TagSerializer(many=True, read_only=True)  
+
     class Meta:
         model = Board
-        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments', 'tag']
+        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments', 'tags']
         read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author', 'comments']
