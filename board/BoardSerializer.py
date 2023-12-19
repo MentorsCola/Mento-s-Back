@@ -26,6 +26,8 @@ class BoardSerializer(serializers.ModelSerializer): # board post
 
 
 class MyBoardsSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='board-detail')
+
     class Meta:
         model = Board
         fields = ['id', 'title', 'dt_created', 'dt_modified', 'url']
