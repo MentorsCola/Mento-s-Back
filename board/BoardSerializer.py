@@ -25,6 +25,13 @@ class BoardSerializer(serializers.ModelSerializer): # board post
         return super().create(validated_data)
 
 
+class MyBoardsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = ['id', 'title', 'dt_created', 'dt_modified', 'url']
+        read_only_fields = ['id', 'dt_created', 'dt_modified', 'url']
+
+
 class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
     class Meta:
         model = Board

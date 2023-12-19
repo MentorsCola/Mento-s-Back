@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 
 from comment.models import Comment
 from comment.serializer import CommentSerializer
-from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer
+from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer, MyBoardsSerializer
 from .models import Board
 
 
@@ -23,7 +23,7 @@ class BoardList(APIView):
 
 @permission_classes([permissions.IsAuthenticated])
 class MyBoardsView(generics.ListAPIView):
-    serializer_class = BoardSerializer
+    serializer_class = MyBoardsSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
