@@ -1,12 +1,13 @@
-import random
-
 from rest_framework import serializers
 
 from board.models import Board
+from tag.serializer import TagSerializer
 from user.models import User
 
 
 class BoardSerializer(serializers.ModelSerializer): # board post
+    tags = TagSerializer(many=True, read_only=True)
+
     class Meta:
         model = Board
         fields = '__all__'
@@ -42,7 +43,9 @@ class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
 
 
 class BoardLoginSerializer(serializers.ModelSerializer): #board get
+    tags = TagSerializer(many=True, read_only=True)  
+
     class Meta:
         model = Board
-        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments']
+        fields = ['id', 'title', 'content', 'dt_created', 'dt_modified', 'nickname_author', 'comments', 'tags']
         read_only_fields = ['id', 'dt_created', 'dt_modified', 'nickname_author', 'author', 'comments']
