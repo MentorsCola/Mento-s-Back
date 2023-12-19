@@ -13,13 +13,16 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['reporter', 'board']
 
-    @action(detail=True, methods=['post'])
-    def report_board(self, request, pk=None):
+    @action(detail=False, methods=['post'])
+    def report_board(self, request):
         # 현재 로그인한 사용자를 확인
         user = request.user
 
+        # 전달된 board_id를 가져오기
+        board_id = request.data.get('board_id')
+
         # 게시글 확인
-        board = get_object_or_404(Board, pk=pk)
+        board = get_object_or_404(Board, pk=board_id)
 
         # 이미 신고한 경우 처리
         if Report.objects.filter(reporter=user, board=board).exists():
