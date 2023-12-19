@@ -11,13 +11,13 @@ from .serializer import TagSerializer
 class TagCreateView(APIView):
     def post(self, request, board_id):
         # 요청에서 태그 정보 추출
-        tag_content = request.data.get('tag_content')
+        tags = request.data.get('tags')
 
         # 게시글 확인
         board = get_object_or_404(Board, pk=board_id)
 
         # 태그 생성 또는 가져오기
-        tag, created = Tag.objects.get_or_create(tag_content=tag_content)
+        tag, created = Tag.objects.get_or_create(tags=tags)
 
         # 게시글에 태그 추가
         board.tags.add(tag)
