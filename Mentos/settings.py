@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000','http://127.0.0.1:3000', 'http://192.168.1.17:3000', 'http://192.168.1.20:3000']
+CORS_ORIGIN_WHITELIST = ['http://192.168.1.17:3000', 'http://192.168.1.20:3000']
 
 
 # Application definition
