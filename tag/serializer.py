@@ -6,7 +6,7 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ['id', 'tag_content', 'board_id']
-        read_only_field = ['board_id']
+        read_only_fields = ['board_id']
 
         def create(self, validated_data):
             # 현재 요청이 속한 게시글의 ID를 가져옴
