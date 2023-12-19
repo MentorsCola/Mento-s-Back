@@ -35,6 +35,15 @@ class MyBoardsSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'dt_created', 'dt_modified', 'url']
 
 
+class ReportSerializer(serializers.ModelSerializer):
+    report_url = serializers.HyperlinkedIdentityField(view_name='board-detail')
+
+    class Meta:
+        model = Board
+        fields = ['id', 'title', 'dt_created', 'dt_modified', 'report_url']
+        read_only_fields = ['id', 'dt_created', 'dt_modified', 'report_url']
+
+
 class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
     class Meta:
         model = Board
