@@ -8,5 +8,6 @@ urlpatterns = [
     path('user/', include('user.urls')), # 유저에 정의된 URL
     path('like/', include('like.urls')),
     path('comment/', include('comment.urls')),
-    path('nickname/', include('nicknames.urls'))
+    path('nickname/', include('nicknames.urls')),
+    path('tag/', include('tag.urls'))
 ]

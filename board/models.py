@@ -11,6 +11,7 @@ class Board(models.Model):
     dt_created = models.DateTimeField("작성일", auto_now_add=True, null=False)
     dt_modified = models.DateTimeField("수정일", auto_now=True, null=False)
     nickname_author = models.ForeignKey(Nicknames, on_delete=models.CASCADE)
+    tags = models.ManyToManyField('tag.Tag', verbose_name='태그')
 
     def __str__(self):
         return self.title
