@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000','http://127.0.0.1']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000','http://127.0.0.1:3000', 'http://192.168.1.17:3000']
 
 
 # Application definition
@@ -100,7 +100,6 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

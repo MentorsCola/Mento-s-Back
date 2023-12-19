@@ -104,8 +104,13 @@ nicknames/migrations
 nicknames/__init__.py
 comment/migrations
 comment/__init__.py
+<<<<<<< HEAD
 tag/__init__.py
 tag/migrations
+=======
+tag/migrations
+tag/__init__.py
+>>>>>>> c6eba226f5b83b9470470a163442162d3b4f81ac
 
 secrets.json
 my_settings.py
