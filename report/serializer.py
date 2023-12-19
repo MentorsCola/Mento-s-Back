@@ -22,7 +22,4 @@ class ReportSerializer(serializers.ModelSerializer):
         # 게시글 확인
         board = get_object_or_404(Board, pk=board_id)
 
-        # 신고 생성
-        report = Report.objects.create(reporter=user, board=board)
-
         return Response({'message': '게시글이 신고되었습니다.'}, status=status.HTTP_201_CREATED)
