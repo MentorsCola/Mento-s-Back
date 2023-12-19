@@ -4,7 +4,7 @@ from board.models import Board
 
 
 class Tag(models.Model):
-    id = models.AutoField(primery_key=True)
+    id = models.AutoField(primary_key=True)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     tag_content = models.TextField("tag", null=False)
 
