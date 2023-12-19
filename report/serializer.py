@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
-from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from board.models import Board
@@ -19,10 +18,6 @@ class ReportSerializer(serializers.ModelSerializer):
 
         # 전달된 board_id를 가져오기
         board_id = request.data.get('board_id')
-
-        # 이미 신고한 경우 처리
-        if Report.objects.filter(reporter=user, board_id=board_id).exists():
-            return Response({'message': '이미 신고한 게시글입니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # 게시글 확인
         board = get_object_or_404(Board, pk=board_id)
