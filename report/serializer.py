@@ -28,6 +28,4 @@ class ReportSerializer(serializers.ModelSerializer):
         # 신고 생성
         report = Report.objects.create(reporter=user, board=board)
 
-        # 신고 시 필요한 추가 로직 수행 (예: 관리자에게 알림 등)
-
         return Response({'message': '게시글이 신고되었습니다.'}, status=status.HTTP_201_CREATED)
