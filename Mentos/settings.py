@@ -36,12 +36,11 @@ with open(secret_file) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.17', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000','http://127.0.0.1:3000', 'http://192.168.1.17']
-# CORS_ORIGIN_WHITELIST = ["*"]
 
 
 # Application definition
