@@ -8,7 +8,8 @@ from rest_framework.views import APIView
 
 from comment.models import Comment
 from comment.serializer import CommentSerializer
-from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer, MyBoardsSerializer
+from report.models import Report
+from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer, MyBoardsSerializer, ReportSerializer
 from .models import Board
 
 
@@ -29,6 +30,15 @@ class MyBoardsView(generics.ListAPIView):
     def get_queryset(self):
         # 현재 로그인한 사용자의 글만 조회
         return Board.objects.filter(author=self.request.user)
+
+
+@permission_classes([permissions.IsAuthenticated])
+class MyReportView(generics.ListAPIView):
+    serializer_class = ReportSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Report.objects.filter(reporter=self.request.user)
 
 
 @permission_classes([permissions.IsAuthenticated])

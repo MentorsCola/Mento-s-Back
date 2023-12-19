@@ -9,5 +9,6 @@ urlpatterns = [
     path('like/', include('like.urls')),
     path('comment/', include('comment.urls')),
     path('nickname/', include('nicknames.urls')),
-    path('tag/', include('tag.urls'))
+    path('tag/', include('tag.urls')),
+    path('report/', include('report.urls'))
 ]
