@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 from comment.models import Comment
 from comment.serializer import CommentSerializer
+from report.models import Report
 from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer, MyBoardsSerializer, ReportSerializer
 from .models import Board
 
@@ -33,11 +34,11 @@ class MyBoardsView(generics.ListAPIView):
 
 @permission_classes([permissions.IsAuthenticated])
 class MyReportView(generics.ListAPIView):
-    serializers_class = ReportSerializer
+    serializer_class = ReportSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Board.objects.filter(author__report=self.request.user)
+        return Report.objects.filter(reporter=self.request.user)
 
 
 @permission_classes([permissions.IsAuthenticated])

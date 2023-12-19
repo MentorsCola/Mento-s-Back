@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from board.models import Board
+from report.models import Report
 from tag.serializer import TagSerializer
 from user.models import User
 
@@ -36,12 +37,12 @@ class MyBoardsSerializer(serializers.ModelSerializer):
 
 
 class ReportSerializer(serializers.ModelSerializer):
-    report_url = serializers.HyperlinkedIdentityField(view_name='board-detail')
+    board_url = serializers.HyperlinkedIdentityField(view_name='board-detail', source='board', read_only=True)
 
     class Meta:
-        model = Board
-        fields = ['id', 'title', 'dt_created', 'dt_modified', 'report_url']
-        read_only_fields = ['id', 'dt_created', 'dt_modified', 'report_url']
+        model = Report
+        fields = ['id', 'reporter', 'board', 'board_url']
+        read_only_fields = ['id', 'reporter', 'board', 'board_url']
 
 
 class BoardNotLoginSerializer(serializers.ModelSerializer): #board get
