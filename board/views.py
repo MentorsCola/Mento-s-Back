@@ -2,12 +2,13 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status, generics
 from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from comment.models import Comment
 from comment.serializer import CommentSerializer
-from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer
+from .BoardSerializer import BoardSerializer, BoardNotLoginSerializer, BoardLoginSerializer, MyBoardsSerializer
 from .models import Board
 
 
@@ -18,6 +19,16 @@ class BoardList(APIView):
         boards = Board.objects.all()
         serializer = BoardNotLoginSerializer(boards, many=True)
         return Response({'boards': serializer.data}, status=status.HTTP_200_OK)
+
+
+@permission_classes([permissions.IsAuthenticated])
+class MyBoardsView(generics.ListAPIView):
+    serializer_class = MyBoardsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # 현재 로그인한 사용자의 글만 조회
+        return Board.objects.filter(author=self.request.user)
 
 
 @permission_classes([permissions.IsAuthenticated])
