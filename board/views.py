@@ -36,7 +36,7 @@ class MyReportView(generics.ListAPIView):
     serializers_class = ReportSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_report(self):
+    def get_queryset(self):
         return Board.objects.filter(author__report=self.request.user)
 
 
