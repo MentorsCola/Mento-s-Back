@@ -10,7 +10,7 @@ class ReportCreateView(generics.CreateAPIView):
 
     def post(self, request, board_id):
         # 신고 생성
-        serializer = ReportSerializer(data={'reporter': request.user.id, 'board': board_id, 'reason': request.data.get('reason')})
+        serializer = ReportSerializer(data={'reporter': request.user.id, 'board': board_id})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
