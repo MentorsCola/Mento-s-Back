@@ -8,5 +8,5 @@ urlpatterns = [
     path('boards/get/<int:pk>/', BoardDetail.as_view(), name='board-auth-list'),
     path('boards/put/<int:pk>/', BoardDetail.as_view(), name='board-update'),
     path('boards/delete/<int:pk>/', BoardDetail.as_view(), name='board-delete'),
-    path('mypage/myboards', MyBoardsView.as_view(), name='my-boards'),
+    path('mypage/myboards/', MyBoardsView.as_view(), name='my-boards'),
 ]
