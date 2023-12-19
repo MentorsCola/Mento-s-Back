@@ -10,7 +10,7 @@ from .models import Report
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
-        fields = ['board']
+        fields = '__all__'
         read_only_fields = ['reporter', 'board']
 
     @action(detail=True, methods=['post'])
@@ -23,8 +23,11 @@ class ReportSerializer(serializers.ModelSerializer):
 
         # 이미 신고한 경우 처리
         if Report.objects.filter(reporter=user, board=board).exists():
-            return Response({'detail': '이미 신고한 게시글입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': '이미 신고한 게시글입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 신고 생성
+        report = Report.objects.create(reporter=user, board=board)
 
         # 신고 시 필요한 추가 로직 수행 (예: 관리자에게 알림 등)
 
-        return Response({'detail': '게시글이 신고되었습니다.'}, status=status.HTTP_201_CREATED)
+        return Response({'message': '게시글이 신고되었습니다.'}, status=status.HTTP_201_CREATED)
