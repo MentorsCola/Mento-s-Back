@@ -29,8 +29,3 @@ class LikeBoardView(APIView):
             message = "좋아요"
 
         return JsonResponse({'message': message, 'like_count': board.like.count()})
-    def get(self, request, board_id):
-        board = get_object_or_404(Board, pk=board_id)
-        # user = request.user
-        like_count = board.like.count()
-        return JsonResponse({"message":'success', 'like_count':like_count})
