@@ -5,9 +5,9 @@ from .models import Tag
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['id', 'tag_content', 'board_id']
-        read_only_fields = ['board_id']
-
+        fields = ['id', 'tags']
+        read_only_fields = ['id']
+        
         def create(self, validated_data):
             # 현재 요청이 속한 게시글의 ID를 가져옴
             board_id = self.context['view'].kwargs.get('board_id')
