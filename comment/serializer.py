@@ -3,11 +3,11 @@ from .models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    nickname = serializers.CharField(source='nickname.name', read_only=True)
+    nickname = serializers.CharField(source='nickname_id', read_only=True)
 
     class Meta:
         model = Comment
-        fields = ['id', 'content', 'nickname']
+        fields = ['content', 'nickname']
         read_only_fields = ['nickname', 'board']
 
     def create(self, validated_data):
