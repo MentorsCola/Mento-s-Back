@@ -34,7 +34,8 @@ class BoardList(APIView):
             board_list.append(a_board)
         return Response({'boards': board_list}, status=status.HTTP_200_OK)
 
-class SortBoard(APIView):
+@permission_classes([permissions.AllowAny])
+class LikeBoard(APIView):
     # permission_classes = [permissions.AllowAny]
     
     def get(self, request):
