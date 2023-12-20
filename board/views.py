@@ -19,8 +19,51 @@ class BoardList(APIView):
     def get(self, request):
         boards = Board.objects.all()
         serializer = BoardNotLoginSerializer(boards, many=True)
-        return Response({'boards': serializer.data}, status=status.HTTP_200_OK)
+        board_list =[]
 
+        for i in serializer.data:
+            n_board = get_object_or_404(Board, pk=i['id'])
+            a_board = {
+                'id': i['id'],
+                'title': i['title'],
+                'dt_created': i['dt_created'],
+                'dt_modified': i['dt_modified'],
+                'nickname_author': i['nickname_author'],
+                'likes':n_board.like.count()
+            }
+            board_list.append(a_board)
+        return Response({'boards': board_list}, status=status.HTTP_200_OK)
+
+@permission_classes([permissions.AllowAny])
+class LikeBoard(APIView):
+    # permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        boards = Board.objects.all()
+        serializer = BoardNotLoginSerializer(boards, many=True)
+        board_list =[]
+
+        for i in serializer.data:
+            n_board = get_object_or_404(Board, pk=i['id'])
+            a_board = {
+                'id': i['id'],
+                'title': i['title'],
+                'dt_created': i['dt_created'],
+                'dt_modified': i['dt_modified'],
+                'nickname_author': i['nickname_author'],
+                'likes':n_board.like.count()
+            }
+            check = False
+            for j in range(0, len(board_list)):
+                if(board_list[j]['likes']>a_board['likes']):
+                    board_list.insert(j, a_board)
+                    check=True
+                    break
+            
+            if(check==False):
+                board_list.append(a_board)
+        board_list.reverse()
+        return Response({'boards': board_list}, status=status.HTTP_200_OK)
 
 @permission_classes([permissions.IsAuthenticated])
 class MyBoardsView(generics.ListAPIView):
@@ -52,6 +95,7 @@ class BoardDetail(generics.RetrieveAPIView):
         comments = Comment.objects.filter(board=instance)
         comments_serializer = CommentSerializer(comments, many=True)
         data = serializer.data
+        data['likes'] = instance.like.count()
         data['comments'] = comments_serializer.data
         return Response(data)
 
