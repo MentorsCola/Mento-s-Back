@@ -21,7 +21,7 @@ class BoardList(APIView):
         serializer = BoardNotLoginSerializer(boards, many=True)
         board_list =[]
 
-        for i in serializer.data:
+        for i in reversed(serializer.data):
             n_board = get_object_or_404(Board, pk=i['id'])
             a_board = {
                 'id': i['id'],
