@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from board.models import Board
 from .models import Tag
 from .serializer import TagSerializer
+from board.BoardSerializer import BoardLoginSerializer
 
 
 class TagCreateView(APIView):
@@ -26,3 +27,20 @@ class TagCreateView(APIView):
         serializer = TagSerializer(tag)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+class TagSearchView(APIView):  
+    queryset = Board.objects.all()
+    serializer_class = BoardLoginSerializer
+
+    def get(self, request):
+        query = request.GET.get('query', None)
+        # t = Tag.objects.filter(tags__contains=query)
+        # tag = TagSerializer(t, many=True).data[0]['tags']
+        board = Board.objects.filter(tags__name__contains=query)
+        # board = Board.objects.all()
+        serializer = BoardLoginSerializer(board, many=True)
+
+        print(serializer.data)
+        # print(tag.replace('"', "").replace("'", "").replace('[', "").replace(']', "").split(','))
+        # filtered_board = Board.objects.filter(tags=query)
+        return Response(serializer.data, status=status.HTTP_200_OK)
